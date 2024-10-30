@@ -12,17 +12,17 @@ cursor.execute('''
     balance INTEGER NOT NULL
     )
 ''')
-
-#Добавляем 10 записей в дб
+cursor.execute("DELETE FROM Users")
+#Добавляем 30 записей в дб
 for i in range(1, 11):
     cursor.execute("INSERT INTO Users (username, email, age, balance) VALUES (?, ?, ?, ?)",
-                   (f'username{i}', f'example{i}@gmail.com', i*10, 1000))
+                   (f'username{i}', f'example{i}@gmail.com', i * 10, 1000))
 
 #Изменаем баланс у каждого второго
-cursor.execute("UPDATE Users SET balance = balance * 2 WHERE id % 2 == 0")
+cursor.execute("UPDATE Users SET balance = 500 WHERE id % 2 != 0")
 
 #Удаляем каждую третью запись с бд
-cursor.execute("DELETE FROM Users WHERE id % 3 == 0")
+cursor.execute("DELETE FROM Users WHERE (id-1) % 3 == 0")
 
 #Выводим на экран
 cursor.execute("SELECT username, email, age, balance FROM Users WHERE age != 60")
